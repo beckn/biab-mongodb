@@ -1,0 +1,5 @@
+---
+- hosts: mongo
+  roles:
+    - { role: mongo, become: yes }
+

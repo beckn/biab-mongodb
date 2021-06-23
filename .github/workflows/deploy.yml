@@ -1,0 +1,18 @@
+name: Deploy Mongo
+
+on: [ push ]
+
+jobs:
+  deploy:
+    name: Deploy mongo service on machine
+    if: github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to mongo instances using ansible
+        run: |
+          cd ansible
+          export ANSIBLE_ROLES_PATH=./roles
+          /home/ubuntu/.local/bin/ansible-playbook playbooks/mongo.yml -i inventory/qa.ini

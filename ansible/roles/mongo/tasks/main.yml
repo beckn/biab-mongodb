@@ -1,0 +1,14 @@
+---
+
+- name: install mongodb
+  apt:
+    name: mongodb
+    state: present
+    update_cache: yes
+  notify:
+  - start mongodb
+
+- name: Configure mongodb
+  template: src=mongod.j2 dest=/etc/mongodb.conf
+  notify: Restart mongod
+
